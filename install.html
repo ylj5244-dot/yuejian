@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>开始使用阅见 · 安装与阅读指南</title>
+  <link rel="stylesheet" href="panel.css">
+  <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+  <main class="guide">
+    <header class="guide-header"><div class="brand"><span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 6.5c4-1.2 7-.2 10 2.2 3-2.4 6-3.4 10-2.2v19c-4-1.2-7-.2-10 2.2-3-2.4-6-3.4-10-2.2zM16 9v18"/></svg></span><span class="brand-name">阅见<span class="brand-caption">WITH DEEPSEEK</span></span></div><span class="guide-edition">阅读助手 · 1.2.0 使用指南</span></header>
+    <section class="guide-hero"><p class="section-kicker">A LITTLE SPACE FOR BIGGER THOUGHTS</p><h1>这一页，<br>想聊什么？</h1><p class="guide-lede">在网页旁边打开阅见，直接问就好。自动读取当前页，联网查证相关信息，再按你的偏好讨论问题、写下评论。</p></section>
+    <section aria-labelledby="installHeading"><h2 id="installHeading">三步，开始聊天</h2>
+      <div class="guide-step"><span class="step-index">01</span><div class="step-content"><h3>解压并加载扩展</h3><p>将 ZIP 解压到会保留的文件夹。使用桌面版 <strong>Chrome 116 或更新版本</strong>，打开 <code>chrome://extensions</code>，开启「开发者模式」，点击「加载已解压的扩展程序」，选择<strong>直接包含 manifest.json 的文件夹</strong>。</p><p>接受所需权限，通过工具栏的拼图菜单固定阅见。普通 HTTP(S) 网站读取权限在安装或更新需要时统一接受；如 Chrome 仍限制访问，进入阅见「详情 → 网站访问权限」，选择「在所有网站上」。请保留原文件夹，不要随意移动或删除。</p></div></div>
+      <div class="guide-step"><span class="step-index">02</span><div class="step-content"><h3>连接你自己的 DeepSeek</h3><p>前往 <a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noreferrer">DeepSeek 开放平台 ↗</a> 创建 API Key，并确保 API 账户有可用余额。打开阅见设置，粘贴密钥并保存。联网核实复用这把密钥，<strong>不需要第三方搜索 Key</strong>。</p><p>默认使用 DeepSeek Flash，可切换 DeepSeek V4 Pro 或平台支持的自定义模型。需要更细致的推理时，可打开「深度思考」。</p><div class="note-block"><p>API 独立计费。联网核实默认开启，搜索规划增加一次短模型请求的 token 费用，搜索服务按官方规则另行计费，最终回答按模型用量计费。可在输入框下方关闭联网核实；开关会保存在本机。</p></div></div></div>
+      <div class="guide-step"><span class="step-index">03</span><div class="step-content"><h3>打开网页，直接提问</h3><p>点击工具栏中的阅见图标，侧栏会自动读取当前页。顶部状态说明读取情况，刷新图标可重新读取，粘贴图标可补充文字。出现「部分内容」时，不能将结果视为全文。</p><p>输入问题，或点击快捷指令后修改并发送。Enter 发送，Shift + Enter 换行。可以在同一会话追问、比较不同网页，或请它把讨论写成评论。</p></div></div>
+    </section>
+    <section class="guide-section"><h2>联网核实，有来源可回看</h2><p>发送时，阅见先请 DeepSeek 规划 1–2 条搜索词，再通过官方服务最多搜索 2 次，每次请求 5 条结果及可用正文。回答会结合返回的正文或摘要，并引用真实来源网址。展开消息中的「联网来源」，可以查看搜索词、检索时间与链接。</p><p>联网过程中可以停止。搜索请求失败时，本轮不继续生成回答；可以手动重试，或关闭「联网核实」后再问。没有可用结果时，会说明资料不足，不会虚构搜索证据。打开网页、自动读取和点击快捷指令都不会自动发起付费请求。</p><div class="note-block"><p>本版未完成真实计费搜索或模型调用验证。费用和账户可用性以 DeepSeek 开放平台为准；搜索返回摘要或部分文字，也不代表读到了来源全文。</p></div></section>
+    <section class="guide-section"><h2>让回答和常用指令，更合你的习惯</h2><div class="usage-grid"><div><h3>分别设置三类长期偏好</h3><p>「我的写作风格」用于文章与评论；「日常回答偏好」用于平时讨论；「长期记忆」用于手动记录背景、关注点或约定。保存后，所有新旧会话的后续回复都会使用，重启后保留。</p></div><div><h3>知道它记住了什么</h3><p>长期记忆只包含你手动保存的内容，不会自动记住所有聊天，也不会训练模型。偏好只存在本机，不跨设备同步；可随时修改或清空。卸载扩展或清除扩展数据会丢失这些内容。</p></div><div><h3>编辑自己的快捷指令</h3><p>在设置的「快捷指令」中编辑、新增、删除、上下排序或恢复默认。最多 8 条，每条名称最多 24 字符，完整指令最多 4,000 字符，也可以全部删空。</p></div><div><h3>保存后，随处继续用</h3><p>点击「保存设置」后，欢迎页和底部快捷入口同步更新，新旧会话都可使用，重启后保留。点击快捷指令只填入草稿，方便你补充要求，再按发送。</p></div></div></section>
+    <section class="guide-section"><h2>页面在变，对话也跟得上</h2><div class="usage-grid"><div><h3>自动更新当前页</h3><p>默认在切换标签页、页面加载后读取；侧栏可见时，每 5 秒在本机更新一次。发送附带网页的消息前，还会重新读取当前页。扩展不会自动滚动或点击网页。</p></div><div><h3>网页开关各管一件事</h3><p>设置中的「自动读取当前网页」控制本机自动更新；「聊天时附带当前网页内容」控制发送时加入当前页。关闭前者、保留后者时，发送前仍会读取。关闭附带网页不会删除历史来源。</p></div><div><h3>保留读取兼容与诊断</h3><p>支持固定定位和全屏布局，单个内嵌页面失败不会阻断其余内容。主读取遇到问题时自动尝试兼容方式；已知不完整的结果标为「部分内容」。设置中保留「读取诊断」与复制入口。</p></div><div><h3>保存和导出讨论</h3><p>历史图标可以切换或删除本机对话，加号可新建话题。点击「导出」保存 Markdown，也可复制单条回复。最多保留 40 个会话，保存失败会明确提示。同一时间请只在一个 Chrome 窗口中使用阅见。</p></div></div></section>
+    <section class="guide-section"><h2>能读到什么，内容存在哪里</h2><ul><li>尝试读取网页中已经加载并显示的整页文字，包括导航、评论、页脚、屏幕下方内容、开放 Shadow DOM 和同源内嵌页面。不做截图或图片识字，不读取隐藏、表单输入或可编辑内容。</li><li>跨域内嵌页面、受保护页面和 PDF 不支持自动读取；尚未加载的内容也不会出现。不自动展开，不越过登录或付费墙。必要时先自行滚动、展开或粘贴补充；「部分内容」不能当作全文。</li><li>每页最多 120,000 字符，网页来源发送预算合计 240,000 字符，当前页优先。每个会话保留最近 6 份网页快照正文与最近 3 轮搜索结果正文；更早的正文清空后，来源信息、搜索词、网址和聊天历史仍保留。</li><li>搜索材料单轮最多 40,000 字符，每次回答合计最多 60,000 字符，使用独立预算。旧聊天上下文预算为 40,000 字符，裁剪时会提示。</li><li>密钥、长期偏好、快捷指令、联网开关和对话保存在本机，不使用 Chrome 同步。密钥未加密，不建议在共用设备上保存。只有发送或主动重试才会请求 DeepSeek 官方服务；联网时，当前问题、页面标题、附带网页的有限文字摘录和相关上一问题用于规划搜索词；搜索服务接收搜索词与原问题。回答时会结合相关材料、历史和偏好。</li><li>没有额外中转服务器或遥测，不读取 Cookie、不调用浏览历史接口、不遍历全部标签页。关闭侧栏会停止自动读取并中断当前请求，已保存的部分回复仍可查看。重要事实与引用请回到来源核对。</li></ul></section>
+    <section class="guide-section"><h2>遇到问题时</h2><div class="usage-grid"><div><h3>如何更新到 1.2.0？</h3><p>关闭侧栏，用新包文件覆盖<strong>原来加载的同一个扩展文件夹</strong>，保留原路径。到 <code>chrome://extensions</code> 重新加载阅见，确认版本为 <strong>1.2.0</strong>；如提示权限或重新启用，请确认。随后刷新网页、重开侧栏。<strong>不要卸载旧版</strong>，保留原有密钥、写作风格和历史。</p></div><div><h3>仍然读不到当前页？</h3><p>确认网页已加载，检查 Chrome 网站访问权限为「在所有网站上」，再点顶部刷新图标。仍失败时，打开「设置 → 读取诊断 → 复制读取诊断」排查。诊断不含正文、对话或 API Key。不要卸载扩展排查，以免丢失历史。</p></div><div><h3>联网或回答请求失败？</h3><p>检查密钥、API 余额、服务可用性与网络。搜索请求失败时不会继续生成本轮回答，可以停止、手动重试，或关闭联网后再问。自定义模型报错时请核对 ID，或切回默认模型。</p></div><div><h3>改了偏好或快捷指令，没生效？</h3><p>编辑后请点击「保存设置」。新偏好用于后续回复，不会改写旧回答；快捷指令只填草稿，不直接发送。完整测试结果和未验证范围见安装包中的 VALIDATION.md，模拟接口或公开页面检查不代表用户安装与真实计费调用已验证。</p></div></div></section>
+    <footer class="guide-footer"><span>阅见 · 边读，边聊。</span><a class="quiet-link" href="https://platform.deepseek.com" target="_blank" rel="noreferrer">DeepSeek 开放平台 ↗</a></footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>阅见 · DeepSeek 阅读助手</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <a class="brand" href="install.html" target="_blank" rel="noreferrer" title="阅见 · 使用说明">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 32 32"><path d="M6 6.5c4-1.2 7-.2 10 2.2 3-2.4 6-3.4 10-2.2v19c-4-1.2-7-.2-10 2.2-3-2.4-6-3.4-10-2.2z"/><path d="M16 9v18M10 12c1.2.1 2.2.5 3 1M10 17c1.2.1 2.2.5 3 1M20 13c.8-.5 1.8-.9 3-1M20 18c.8-.5 1.8-.9 3-1"/></svg></span>
+        <span class="brand-name">阅见<span class="brand-caption">WITH DEEPSEEK</span></span>
+      </a>
+      <nav class="header-actions" aria-label="对话工具">
+        <button id="historyBtn" class="icon-button" type="button" title="历史对话" aria-label="历史对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11a9 9 0 1 1 2.4 7M3 4v7h7M12 7v5l3 2"/></svg></button>
+        <button id="newChatBtn" class="icon-button" type="button" title="新建对话" aria-label="新建对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></button>
+        <button id="settingsBtn" class="icon-button" type="button" title="设置" aria-label="设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9m4 0h3M4 17h3m4 0h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></svg></button>
+      </nav>
+    </header>
+
+    <div id="pageContext" class="page-context" role="status" aria-live="polite">
+      <span class="status-dot" aria-hidden="true"></span>
+      <p id="pageStatus" class="page-status">正在读取当前网页…</p>
+      <div class="context-actions">
+        <button id="refreshPageBtn" class="icon-button context-button" type="button" title="重新读取当前网页" aria-label="重新读取当前网页"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M16.5 8A6.7 6.7 0 1 0 16 14M16.5 3v5h-5"/></svg></button>
+        <button id="pasteBtn" class="icon-button context-button" type="button" title="粘贴补充内容" aria-label="粘贴补充内容"><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="4" y="4.5" width="12" height="13" rx="2"/><rect x="7" y="2.5" width="6" height="4" rx="1"/><path d="M7 10h6M7 13h4"/></svg></button>
+      </div>
+    </div>
+
+    <div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+
+    <div class="conversation-toolbar">
+      <span id="conversationTitle">新的阅读对话</span>
+      <button id="exportBtn" class="text-button export-button" type="button" title="导出为 Markdown"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 3v9m-3-3 3 3 3-3M4 12v4h12v-4"/></svg>导出</button>
+    </div>
+
+    <main id="messages" class="messages" aria-label="对话内容" aria-live="polite" aria-relevant="additions">
+      <section id="welcome" class="welcome">
+        <div class="welcome-ornament" aria-hidden="true"><span></span><svg viewBox="0 0 32 32"><path d="M9 5v22M23 5v22M5 9h22M5 23h22M12 16h8M16 12v8"/></svg><span></span></div>
+        <p class="section-kicker welcome-kicker">边读，边聊</p>
+        <h1>这一页，<br>想聊什么？</h1>
+        <p class="welcome-description">直接提问就好。阅见会自动读取当前网页，<br>陪你梳理内容、追问逻辑，或写下自己的想法。</p>
+        <div id="welcomeQuickPrompts" class="quick-prompts" aria-label="快捷指令"></div>
+      </section>
+    </main>
+
+    <footer class="composer-area">
+      <div class="followup-prompts" aria-label="快捷指令，填入后可调整再发送"><span class="followup-label">接着想</span><div id="followupQuickPrompts" class="followup-buttons"></div></div>
+      <form id="chatForm" class="composer">
+        <label class="sr-only" for="prompt">你的问题或写作要求</label>
+        <textarea id="prompt" rows="3" placeholder="问问这一页，或说说你的想法…" autocomplete="off" spellcheck="false"></textarea>
+        <div class="composer-tools">
+          <div class="composer-options"><label class="thinking-toggle"><input id="thinking" type="checkbox"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m10 2 2.2 5.8L18 10l-5.8 2.2L10 18l-2.2-5.8L2 10l5.8-2.2z"/></svg><span>深度思考</span></label><label class="thinking-toggle search-toggle"><input id="webSearch" type="checkbox" checked><svg viewBox="0 0 20 20" aria-hidden="true"><circle cx="9" cy="9" r="6"/><path d="m13.5 13.5 3.5 3.5M3 9h12M9 3c-3 3.5-3 8.5 0 12M9 3c3 3.5 3 8.5 0 12"/></svg><span>联网核实</span></label><span id="modelBadge" class="model-badge" title="在设置中切换模型">Flash</span></div>
+          <button id="stopBtn" class="stop-button" type="button" hidden><svg viewBox="0 0 20 20" aria-hidden="true"><rect x="6" y="6" width="8" height="8" rx="1"/></svg>停止</button>
+          <button id="sendBtn" class="send-button" type="submit" title="发送（Enter）"><span>发送</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="M10 15V5m-4 4 4-4 4 4"/></svg></button>
+        </div>
+      </form>
+      <p id="composerNote" class="composer-note">发送后，当前页与搜索请求直送 DeepSeek · 搜索另计费<span class="keyboard-tip"> · Shift + Enter 换行</span></p>
+    </footer>
+  </div>
+
+  <dialog id="settingsDialog" aria-labelledby="settingsTitle">
+    <div class="dialog-header"><div><p class="section-kicker">PREFERENCES</p><h2 id="settingsTitle">把阅见，调成你的样子</h2></div><button class="icon-button" type="button" data-close="settingsDialog" aria-label="关闭设置"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <form id="settingsForm" class="settings-form">
+      <section class="settings-section">
+        <div class="field-heading"><label for="apiKey">DeepSeek API Key</label><a href="https://platform.deepseek.com/api_keys" target="_blank" rel="noreferrer">获取密钥 ↗</a></div>
+        <div class="password-field"><input id="apiKey" type="password" placeholder="sk-…" autocomplete="off" spellcheck="false" aria-describedby="keyHint"><button id="toggleKeyBtn" class="text-button" type="button" aria-label="显示或隐藏密钥">显示</button></div>
+        <p id="keyHint" class="field-help">密钥仅保存在本机浏览器的扩展存储中，未加密；请勿在共用设备上保存。API 独立计费，网页端可用不代表 API 账户有可用余额。</p>
+        <label class="field-label" for="modelSelect">对话模型</label>
+        <select id="modelSelect"><option value="deepseek-flash">DeepSeek Flash · 日常阅读</option><option value="deepseek-v4-pro">DeepSeek V4 Pro · 深入分析</option><option value="custom">自定义模型 ID</option></select>
+        <input id="customModel" class="custom-model" type="text" placeholder="输入 DeepSeek 模型 ID" autocomplete="off" spellcheck="false" aria-label="自定义模型 ID" hidden>
+      </section>
+      <section class="settings-section">
+        <p id="preferenceScope" class="preference-scope">以下三项长期保存在本机。保存后，所有新旧对话的后续回复都会使用；不会训练模型，也不会自动记住每次聊天。</p>
+        <div class="field-heading"><label for="stylePrompt">我的写作风格</label><button id="resetStyleBtn" class="text-button" type="button">恢复默认</button></div>
+        <p id="stylePromptHelp" class="field-help style-help">写文章或评论时，你习惯怎样组织观点、表达判断。</p>
+        <textarea id="stylePrompt" rows="4" maxlength="12000" aria-describedby="preferenceScope stylePromptHelp" placeholder="例如：先事实，再问题，再逻辑；冷静克制，少用列表。"></textarea>
+        <label class="field-label" for="replyStylePrompt">日常回答偏好</label>
+        <p id="replyStyleHelp" class="field-help style-help">平时讨论问题，你希望它如何回答。</p>
+        <textarea id="replyStylePrompt" rows="4" maxlength="8000" aria-describedby="preferenceScope replyStyleHelp" placeholder="例如：先说结论，回答简洁；不确定时直说，少用客套话。"></textarea>
+        <label class="field-label" for="memoryPrompt">长期记忆</label>
+        <p id="memoryPromptHelp" class="field-help style-help">手动写下希望它一直参考的背景、关注点或约定，随时可以修改。</p>
+        <textarea id="memoryPrompt" rows="4" maxlength="12000" aria-describedby="preferenceScope memoryPromptHelp" placeholder="例如：我的研究方向、读者是谁，以及讨论时需要记住的背景。"></textarea>
+      </section>
+      <section class="settings-section">
+        <div class="field-heading"><h3 id="quickPromptEditorTitle" class="settings-section-title">快捷指令</h3><button id="resetQuickPromptsBtn" class="text-button" type="button">恢复默认</button></div>
+        <p id="quickPromptEditorHelp" class="field-help style-help">最多 8 条，可编辑名称和完整指令，也可添加、删除或上下移动。点击快捷指令只会填入草稿，确认后再发送。</p>
+        <div id="quickPromptEditor" class="quick-prompt-editor" aria-labelledby="quickPromptEditorTitle" aria-describedby="quickPromptEditorHelp"></div>
+        <button id="addQuickPromptBtn" class="secondary-button add-quick-prompt" type="button">＋ 添加快捷指令</button>
+      </section>
+      <section class="settings-section settings-reading">
+        <label class="check-label"><input id="autoRead" type="checkbox" checked><span>自动读取当前网页</span></label>
+        <label class="check-label"><input id="usePageContext" type="checkbox" checked><span>聊天时附带当前网页内容</span></label>
+        <p id="pageContextHelp" class="field-help">读取当前网页中已加载的文字，不识别图片里的文字。发消息时才将内容发送至 DeepSeek。</p>
+      </section>
+      <details class="reading-diagnostics">
+        <summary>读取诊断 · v1.2.0</summary>
+        <p class="field-help">读取仍不正常时，复制这份诊断发给我。只含站点域名、读取状态和错误代码，不含正文、对话或 API Key。</p>
+        <pre id="readDiagnostics">还没有读取记录。</pre>
+        <button id="copyDiagnosticsBtn" class="secondary-button" type="button">复制读取诊断</button>
+      </details>
+      <p id="settingsError" class="notice settings-notice error" role="status" aria-live="polite" hidden></p>
+      <div class="dialog-footer"><a class="quiet-link" href="install.html" target="_blank" rel="noreferrer">安装与使用说明 ↗</a><button id="saveSettingsBtn" class="primary-button" type="submit">保存设置</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="historyDialog" aria-labelledby="historyTitle">
+    <div class="dialog-header"><div><p class="section-kicker">YOUR READING TRAIL</p><h2 id="historyTitle">想法，有迹可循</h2></div><button class="icon-button" type="button" data-close="historyDialog" aria-label="关闭历史对话"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <p class="dialog-intro">对话保存在本机，随时回来接着聊。</p>
+    <div id="historyList" class="history-list"></div>
+  </dialog>
+
+  <dialog id="pasteDialog" aria-labelledby="pasteTitleHeading">
+    <div class="dialog-header"><div><p class="section-kicker">BRING YOUR OWN TEXT</p><h2 id="pasteTitleHeading">值得聊的，都可以放进来</h2></div><button class="icon-button" type="button" data-close="pasteDialog" aria-label="关闭粘贴正文"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button></div>
+    <div class="paste-form"><label class="field-label" for="pasteTitle">标题 <span class="optional">（可选）</span></label><input id="pasteTitle" type="text" placeholder="给这段内容起个名字" maxlength="200"><label class="field-label" for="pasteText">正文</label><textarea id="pasteText" rows="12" placeholder="粘贴文章、笔记，或一段你想讨论的文字…"></textarea><p class="field-help">最多使用 120,000 个字符。内容仅在你发送消息时传给 DeepSeek。</p><div class="dialog-footer"><button class="secondary-button" type="button" data-close="pasteDialog">取消</button><button id="usePasteBtn" class="primary-button" type="button">使用这段正文</button></div></div>
+  </dialog>
+  <script type="module" src="panel.js"></script>
+</body>
+</html>
